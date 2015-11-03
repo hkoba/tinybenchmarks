@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <stdlib.h>
 
 namespace Benchmark {
 
@@ -21,6 +22,9 @@ namespace Benchmark {
 	}
 	void* is_ok() { return (void*)(_rc == 0); }
 	void elapsed(FILE* out, long N, const char* title, const RUsage& now) const {
+	  if (char* benchmark_id = getenv("BENCHMARK_ID")) {
+		fprintf(out, "benchmark_id:%s\t", benchmark_id);
+	  }
 	  fprintf(out, "user_sec:%g\tsys_sec:%g\tN:%d\ttheme:%s\n"
 			  , tv_diff_as_double(now.ru_utime, ru_utime)
 			  , tv_diff_as_double(now.ru_stime, ru_stime)
