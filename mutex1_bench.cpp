@@ -4,13 +4,11 @@
 
 #include "benchmark.h"
 
-#define ERROR_EXIT(fn, args) error_exit(#fn, fn args)
+#define ERROR_EXIT(fn, args) do {int rc = fn args; if (rc) error_exit(#fn, rc); } while (0)
 
 inline static void error_exit(const char* func, int rc) {
-  if (rc != 0) {
-    printf("FAILED: %s: %s\n", func , strerror(rc));
-    exit(1);
-  }
+  printf("FAILED: %s: %s\n", func , strerror(rc));
+  exit(1);
 }
 
 int main(int, char** argv, char**) {
