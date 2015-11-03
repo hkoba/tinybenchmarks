@@ -28,6 +28,9 @@ namespace Benchmark {
 			  , title
 			  );
 	}
+	void elapsed(FILE* out, long N, const char* title) const {
+	  elapsed(out, N, title, RUsage());
+	}
 	void elapsed(FILE* out, const char* title, const RUsage& now) const {
 	  fprintf(out, "user_sec:%g\tsys_sec:%g\ttheme:%s\n"
 			  , tv_diff_as_double(now.ru_utime, ru_utime)
