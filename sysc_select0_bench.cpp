@@ -17,6 +17,6 @@ int main(int, char** argv, char**) {
 	perror("select"); exit(1);
       }
     }
-    start.elapsed(stdout, N, "select()");
+    start.elapsed(stdout, N, "select(0,NULL,NULL,NULL,{0,0})");
   }
 }
