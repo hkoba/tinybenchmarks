@@ -2,18 +2,21 @@
 #include <stdlib.h>
 
 #include "benchmark.h"
-#include "exit_if_error.h"
 
 int main(int, char** argv, char**) {
   argv++;
 
-  long N = *argv ? atol(*argv++) : 400000000;
+  long N = *argv ? atol(*argv++) : 10000000;
   
   {
     Benchmark::RUsage start;
+    struct timeval tv = {tv_sec: 0, tv_usec: 0};
     for (long i = 0; i < N; i++) {
-      // HERE
+      int rc = select(0, NULL, NULL, NULL, &tv);
+      if (rc == -1) {
+	perror("select"); exit(1);
+      }
     }
-    start.elapsed(stdout, N, "THEME");
+    start.elapsed(stdout, N, "select()");
   }
 }
