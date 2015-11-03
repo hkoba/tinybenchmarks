@@ -38,7 +38,7 @@ function die { echo 1>&2 $*; exit 1 }
 	    rm -f $out
 	    echo Running $src:r 3 times...
 	    for ((i=0; i < 3; i++)); do
-		$src:r >> $out
+		$src:r </dev/null >> $out
 	    done
 	else
 	    echo "Can't build $src"
