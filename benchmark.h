@@ -11,8 +11,9 @@
 namespace Benchmark {
 
   double tv_diff_as_double(const timeval& now, const timeval& from) {
-	return double(now.tv_sec - from.tv_sec)
-	  + 0.000001*(now.tv_usec - from.tv_usec);
+	timeval res;
+	timersub(&now, &from, &res);
+	return double(res.tv_sec) + 0.000001*(res.tv_usec);
   }
 
   struct RUsage : public rusage {
